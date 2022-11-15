@@ -10,9 +10,9 @@ Phoenix::Phoenix(string name, string type) : Pet() {
 
     this->type = type;
     this->name = name;
-    strength = 45;
+    strength = 50;
     core = 20;
-    luck = 15;
+    luck = 30;
 
 }
 
