@@ -27,7 +27,8 @@ bool SaveManager::userExists(string username) {
 
 		getline(infile, user);
 		if (user.compare(username) == 0) {
-			return true;
+			this->username = username;
+            return true;
 			break;
 		}
 
@@ -47,7 +48,23 @@ void SaveManager::addUser(string username) {
 	}
 
 	outfile << username << endl;
+}
 
+bool SaveManager::petExists(string petName) {
 
+    string line;
 
+    while (!infile.eof()) {
+                                          // user:petname:strength:core:luck:energy
+        getline(infile, line); // username petname 50 20 30 100
+
+        stringstream ss(line);
+        string word;
+        while (ss >> word) {
+            if (word == petName) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

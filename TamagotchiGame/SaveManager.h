@@ -11,12 +11,14 @@ public:
 	void saveManager();
 	bool userExists(string);
 	void addUser(string);
+    bool petExists(string);
 
 
 private:
 	string filename;
 	ifstream infile;
 	ofstream outfile;
+    string username;
 
 
 };
