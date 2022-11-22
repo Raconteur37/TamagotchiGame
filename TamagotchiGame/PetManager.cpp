@@ -8,6 +8,12 @@
 
 using namespace std;
 
-PetManager::PetManager(Pet &pet) {
+PetManager::PetManager(Pet* pet) {
     this->pet = pet;
+}
+
+bool PetManager::mainMenu() {
+
+
+
 }

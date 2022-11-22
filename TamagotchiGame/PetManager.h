@@ -8,13 +8,13 @@ using namespace std;
 class PetManager {
 
 public:
-    PetManager(Pet&);
+    PetManager(Pet*);
     bool mainMenu();
     bool changeName();
     bool train();
 
 private:
-    Pet pet;
+    Pet* pet;
 
 };
 

@@ -20,12 +20,14 @@ bool MenuManager::creatPet() {
     cout << "3. Bunnies" << endl;
     cout << "4. Exit" << endl;
     int option;
+    Pet* pet;
     cin >> option;
     if (option == 1) {
         string name;
         cout << "What will you name your Phoenix? " << endl;
         cin >> name;
-        Phoenix phoenix = Phoenix(name,"phoenix");
+        pet = new Phoenix(name,"phoenix");
+
 
     }
     if (option == 4) {
@@ -103,6 +105,7 @@ bool MenuManager::mainMenu() {
     } else if (option == 5) {
         exit(1);
     } else {
+        cout << "Invalid option" << endl;
         return false;
     }
 }
