@@ -33,8 +33,6 @@ int main() {
         menuManager.mainMenu();
     }
 
-    //artManager.drawWelcome();
-
 
 
 
