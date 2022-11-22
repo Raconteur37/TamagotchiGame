@@ -2,15 +2,18 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
+#include "Pet.h"
 
 using namespace std;
 
 class SaveManager {
 
 public:
-	void saveManager();
-	bool userExists(string);
-	void addUser(string);
+	SaveManager(string);
+    string getUsername();
+	bool userExists();
+	void addUser();
+    void addPet(Pet*);
     bool petExists(string);
 
 

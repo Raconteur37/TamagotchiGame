@@ -4,12 +4,12 @@
 #include "MenuManager.h"
 #include "Pet.h"
 #include "Phoenix.h"
-
+#include "SaveManager.h"
 
 using namespace std;
 
-MenuManager::MenuManager() {
-
+MenuManager::MenuManager(SaveManager* saveManager) {
+    this->saveManager = saveManager;
 }
 
 bool MenuManager::creatPet() {
@@ -27,6 +27,8 @@ bool MenuManager::creatPet() {
         cout << "What will you name your Phoenix? " << endl;
         cin >> name;
         pet = new Phoenix(name,"phoenix");
+        saveManager->addPet(pet);
+
 
 
     }

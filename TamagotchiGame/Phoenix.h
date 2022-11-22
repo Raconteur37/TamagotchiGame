@@ -16,6 +16,9 @@ public:
     void addFireEnergy(int);
     void setFireEnergy(int);
     int getFireEnergy();
+    void addSpecialEnergy(int);
+    void setSpecialEnergy(int);
+    int getSpecialEnergy();
 };
 
 

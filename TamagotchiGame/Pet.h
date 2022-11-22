@@ -21,6 +21,9 @@ public:
     double getLuck();
     double getEnergy();
     string getType();
+    virtual void setSpecialEnergy(int);
+    virtual int getSpecialEnergy();
+    virtual void addSpecialEnergy(int);
 
 
 

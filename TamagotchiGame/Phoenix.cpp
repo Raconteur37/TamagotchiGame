@@ -27,3 +27,15 @@ void Phoenix::setFireEnergy(int energy) {
 int Phoenix::getFireEnergy() {
     return fireEnergy;
 }
+
+int Phoenix::getSpecialEnergy() {
+    return getFireEnergy();
+}
+
+void Phoenix::setSpecialEnergy(int energy) {
+    setFireEnergy(energy);
+}
+
+void Phoenix::addSpecialEnergy(int num) {
+    addSpecialEnergy(num);
+}

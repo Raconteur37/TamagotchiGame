@@ -11,8 +11,6 @@ using namespace std;
 
 int main() {
 
-    SaveManager saveManager = SaveManager();
-    MenuManager menuManager = MenuManager();
     Art artManager = Art();
 
     string username;
@@ -21,10 +19,14 @@ int main() {
 
     cin >> username;
 
-    if (saveManager.userExists(username)) {
+    SaveManager saveManager = SaveManager(username);
+    SaveManager* savePtr = &saveManager;
+    MenuManager menuManager = MenuManager(savePtr);
+
+    if (saveManager.userExists()) {
         cout << "Welcome back" << endl;
     } else {
-        saveManager.addUser(username);
+        saveManager.addUser();
     }
 
     bool run = true;

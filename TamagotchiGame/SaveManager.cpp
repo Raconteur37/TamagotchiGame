@@ -8,11 +8,15 @@
 
 using namespace std;
 
-void SaveManager::saveManager() {
-
+SaveManager::SaveManager(string username) {
+    this->username = username;
 }
 
-bool SaveManager::userExists(string username) {
+string SaveManager::getUsername() {
+    return username;
+}
+
+bool SaveManager::userExists() {
 
 	infile.open("users.txt");
 
@@ -25,9 +29,8 @@ bool SaveManager::userExists(string username) {
 	
 	while (!infile.eof()) {
 
-		getline(infile, user);
+		getline(infile, username);
 		if (user.compare(username) == 0) {
-			this->username = username;
             return true;
 			break;
 		}
@@ -38,7 +41,7 @@ bool SaveManager::userExists(string username) {
 
 }
 
-void SaveManager::addUser(string username) {
+void SaveManager::addUser() {
 
 	//outfile.open("users.txt");
 	outfile.open("users.txt", ios_base::app);
@@ -50,12 +53,21 @@ void SaveManager::addUser(string username) {
 	outfile << username << endl;
 }
 
+void SaveManager::addPet(Pet * pet) {
+
+    string petStr = username + " " + pet->getName() + " " + to_string(pet->getStrength()) + " " + to_string(pet->getCore()) + " " + to_string(pet->getLuck()) + " " +
+            to_string(pet->getEnergy());
+
+    cout << "PET STRING " << petStr << endl;
+
+}
+
 bool SaveManager::petExists(string petName) {
 
     string line;
 
     while (!infile.eof()) {
-                                          // user:petname:strength:core:luck:energy
+                                          // user petname strength core luck energy
         getline(infile, line); // username petname 50 20 30 100
 
         stringstream ss(line);
