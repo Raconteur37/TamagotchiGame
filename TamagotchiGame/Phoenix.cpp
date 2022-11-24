@@ -37,5 +37,5 @@ void Phoenix::setSpecialEnergy(int energy) {
 }
 
 void Phoenix::addSpecialEnergy(int num) {
-    addSpecialEnergy(num);
+    addFireEnergy(num);
 }

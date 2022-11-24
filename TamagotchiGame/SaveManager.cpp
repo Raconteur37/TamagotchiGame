@@ -1,7 +1,7 @@
 //Final Version
 #include <stdio.h>
 #include <iostream>
-#include <SaveManager.h>
+#include "SaveManager.h"
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -36,9 +36,8 @@ bool SaveManager::userExists() {
 		}
 
 	}
+    infile.close();
 	return false;
-	infile.close();
-
 }
 
 void SaveManager::addUser() {
@@ -53,7 +52,7 @@ void SaveManager::addUser() {
 	outfile << username << endl;
 }
 
-void SaveManager::addPet(Pet * pet) {
+void SaveManager::addPet(Pet* pet) {
 
     string petStr = username + " " + pet->getName() + " " + to_string(pet->getStrength()) + " " + to_string(pet->getCore()) + " " + to_string(pet->getLuck()) + " " +
             to_string(pet->getEnergy());

@@ -6,6 +6,7 @@ using namespace std;
 class Pet {
 public:
     Pet();
+    virtual ~Pet();
     void setName(string);
     void setStrength(double);
     void setCore(double);
