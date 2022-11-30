@@ -14,7 +14,7 @@ public:
     void setEnergy(double);
     void setOwner(string);
     void setType(string);
-    void setExpedition(bool);
+    void setStatus(string);
     void addStrength(double);
     void addCore(double);
     void addLuck(double);
@@ -26,7 +26,7 @@ public:
     double getEnergy();
     string getType();
     string getOwner();
-    bool getExpedition();
+    string getStatus();
     virtual void setSpecialEnergy(int);
     virtual int getSpecialEnergy();
     virtual void addSpecialEnergy(int);
@@ -43,7 +43,7 @@ protected:
     double core;
     double luck;
     double energy;
-    bool isOnExpedition;
+    string status;
 
 
 };

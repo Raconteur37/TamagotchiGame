@@ -117,8 +117,6 @@ Pet* SaveManager::displayPets() {
 
         // username petname type 50 20 30 100
 
-        cout << "This is the line " << line << endl;
-
         istringstream ss(line);
         string word;
         while (ss >> word) {
@@ -158,7 +156,7 @@ Pet* SaveManager::displayPets() {
     }
 
     for (int z = 0; z < pets.size(); z++) {
-        cout << z+1 << ". " << petsAccess[z]->getName() << " Type: " << petsAccess[z]->getType() << endl;
+        cout << z+1 << ". Name:" << petsAccess[z]->getName() << " Type:" << petsAccess[z]->getType() << endl;
     }
 
     int num;

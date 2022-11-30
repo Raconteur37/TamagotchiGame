@@ -12,7 +12,7 @@ public:
     PetManager(Pet*);
     void setPet(Pet*);
     bool mainMenu();
-    bool train();
+    bool trainStrength();
 
 private:
     Pet* pet;

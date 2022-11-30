@@ -7,6 +7,7 @@ using namespace std;
 
 Pet::Pet() {
     energy = 100;
+    status = "idle";
 }
 
 Pet::~Pet() {
@@ -57,8 +58,8 @@ void Pet::setType(string type) {
     this->type = type;
 }
 
-void Pet::setExpedition(bool exp) {
-    isOnExpedition = exp;
+void Pet::setStatus(string status) {
+    this->status = status;
 }
 
 string Pet::getName() {
@@ -89,8 +90,8 @@ string Pet::getOwner() {
     return owner;
 }
 
-bool Pet::getExpedition() {
-    return isOnExpedition;
+string Pet::getStatus() {
+    return status;
 }
 
 void Pet::addSpecialEnergy(int) {
