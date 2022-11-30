@@ -18,7 +18,9 @@ int main() {
 
     cin >> username;
 
-    SaveManager saveManager = SaveManager(username);
+    string* user = &username;
+
+    SaveManager saveManager = SaveManager(user);
     SaveManager* savePtr = &saveManager;
     MenuManager menuManager = MenuManager(savePtr);
 

@@ -5,14 +5,15 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-SaveManager::SaveManager(string username) {
-    this->username = username;
+SaveManager::SaveManager(string* user) {
+    this->username = user;
 }
 
-string SaveManager::getUsername() {
+string* SaveManager::getUsername() {
     return username;
 }
 
@@ -26,13 +27,13 @@ bool SaveManager::userExists() {
 	}
 
 	string user;
+    string userPtr = *username;
 	
 	while (!infile.eof()) {
 
-		getline(infile, username);
-		if (user.compare(username) == 0) {
+		getline(infile, user);
+		if (user == userPtr) {
             return true;
-			break;
 		}
 
 	}
@@ -54,28 +55,121 @@ void SaveManager::addUser() {
 
 void SaveManager::addPet(Pet* pet) {
 
-    string petStr = username + " " + pet->getName() + " " + to_string(pet->getStrength()) + " " + to_string(pet->getCore()) + " " + to_string(pet->getLuck()) + " " +
+    string petStr = *username + " " + pet->getName() + " " + pet->getType() + " " + to_string(pet->getStrength()) + " " + to_string(pet->getCore()) + " " + to_string(pet->getLuck()) + " " +
             to_string(pet->getEnergy());
 
-    cout << "PET STRING " << petStr << endl;
+    ofstream file;
+
+    file.open("pets.txt", ios_base::app);
+
+    if (!file.is_open()) {
+        cout << "Error opening file" << endl;
+    }
+
+    file << petStr << endl;
+
+    file.close();
 
 }
 
-bool SaveManager::petExists(string petName) {
+bool SaveManager::petExists(Pet* pet) {
 
     string line;
 
-    while (!infile.eof()) {
-                                          // user petname strength core luck energy
-        getline(infile, line); // username petname 50 20 30 100
+    string petName = pet->getName();
+
+    ifstream file;
+
+    file.open("pets.txt");
+
+    while (!file.eof()) {
+                                          // user petname type strength core luck energy
+        getline(file, line); // username petname type 50 20 30 100
 
         stringstream ss(line);
         string word;
         while (ss >> word) {
             if (word == petName) {
-                return false;
+                file.close();
+                return true;
             }
         }
     }
-    return true;
+    file.close();
+    return false;
+}
+
+Pet* SaveManager::displayPets() {
+
+    vector<Pet> pets;
+    vector<string> petInfo;
+
+    Pet pet = Pet();
+
+    string line;
+
+    ifstream file;
+    file.open("pets.txt");
+
+    if (!file.is_open()) {
+        cout << "Error opening file" << endl;
+    }
+
+    while (getline(file, line)) {
+
+        // username petname type 50 20 30 100
+
+        cout << "This is the line " << line << endl;
+
+        istringstream ss(line);
+        string word;
+        while (ss >> word) {
+            petInfo.push_back(word);
+        }
+        ss.clear();
+
+        /*
+        for (auto & i : petInfo) {
+            cout << "pet info " << i << endl;
+        }
+         */
+
+        pet.setOwner(petInfo[0]);
+        pet.setType(petInfo[1]);
+        pet.setName(petInfo[2]);
+        pet.setStrength(stod(petInfo[3]));
+        pet.setCore(stod(petInfo[4]));
+        pet.setLuck(stod(petInfo[5]));
+        pet.setEnergy(stoi(petInfo[6]));
+
+        pets.push_back(pet);
+        petInfo.clear();
+
+
+    }
+
+    vector<Pet> petsAccess;
+
+    for (int x = 0; x < pets.size(); x++) {
+        //pets[x].toString();
+        if (pets[x].getOwner() == *username) {
+            petsAccess.push_back(pets[x]);
+        }
+    }
+
+    for (int z = 0; z < pets.size(); z++) {
+        cout << z+1 << ". " << petsAccess[z].getName() << " Type: " << petsAccess[z].getType() << endl;
+    }
+
+    int num;
+    cout << "Type the number of what pet to access" << endl;
+    cin >> num;
+
+    Pet finalPet = petsAccess[num-1];
+    Pet* finalPetPtr = &finalPet;
+
+    file.close();
+
+    return finalPetPtr;
+
 }

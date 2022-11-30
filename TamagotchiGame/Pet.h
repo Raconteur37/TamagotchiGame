@@ -12,6 +12,8 @@ public:
     void setCore(double);
     void setLuck(double);
     void setEnergy(double);
+    void setOwner(string);
+    void setType(string);
     void addStrength(double);
     void addCore(double);
     void addLuck(double);
@@ -22,9 +24,11 @@ public:
     double getLuck();
     double getEnergy();
     string getType();
+    string getOwner();
     virtual void setSpecialEnergy(int);
     virtual int getSpecialEnergy();
     virtual void addSpecialEnergy(int);
+    void toString();
 
 
 
@@ -32,6 +36,7 @@ public:
 protected:
     string name;
     string type;
+    string owner;
     double strength;
     double core;
     double luck;

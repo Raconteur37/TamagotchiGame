@@ -9,19 +9,22 @@ using namespace std;
 class SaveManager {
 
 public:
-	SaveManager(string);
-    string getUsername();
+	SaveManager(string*);
+    string* getUsername();
 	bool userExists();
 	void addUser();
     void addPet(Pet*);
-    bool petExists(string);
+    bool petExists(Pet*);
+    Pet* displayPets();
 
 
 private:
 	string filename;
 	ifstream infile;
+    ifstream petsInfile;
 	ofstream outfile;
-    string username;
+    ofstream petsOutfile;
+    string* username;
 
 
 };

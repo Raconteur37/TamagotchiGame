@@ -26,11 +26,14 @@ bool MenuManager::creatPet() {
         cout << "What will you name your Phoenix? " << endl;
         cin >> name;
         pet = new Phoenix(name,"phoenix");
-        saveManager->addPet(pet);
-
-
-
+        if (!saveManager->petExists(pet)) {
+            saveManager->addPet(pet);
+            cout << pet->getName() + " has been made!" << endl;
+        } else {
+            cout << "Pet already exists!" << endl;
+        }
     }
+
     if (option == 4) {
         return false;
     }
@@ -39,8 +42,15 @@ bool MenuManager::creatPet() {
 }
 
 bool MenuManager::accessPet() {
-
-    return false;
+    Pet* pet = nullptr;
+    cout << "What pet will you access today? " << endl;
+    pet = saveManager->displayPets();
+    cout << "PET HERE " << pet->getName();
+    if (pet != nullptr) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool MenuManager::deletePet() {

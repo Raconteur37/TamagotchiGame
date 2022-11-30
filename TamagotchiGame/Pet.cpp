@@ -49,6 +49,14 @@ void Pet::setEnergy(double energy) {
     this->energy = energy;
 }
 
+void Pet::setOwner(string owner) {
+    this->owner = owner;
+}
+
+void Pet::setType(string type) {
+    this->type = type;
+}
+
 string Pet::getName() {
     return name;
 }
@@ -73,6 +81,10 @@ string Pet::getType() {
     return type;
 }
 
+string Pet::getOwner() {
+    return owner;
+}
+
 void Pet::addSpecialEnergy(int) {
 
 }
@@ -83,4 +95,10 @@ void Pet::setSpecialEnergy(int) {
 
 int Pet::getSpecialEnergy() {
    return 0;
+}
+
+void Pet::toString() {
+    cout << "Pet owner: " << this->owner << endl;
+    cout << "Name: " << this->name << endl;
+    cout << "Type: " << this->type << endl;
 }
