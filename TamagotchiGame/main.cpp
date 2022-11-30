@@ -5,6 +5,7 @@
 #include "Phoenix.h"
 #include "MenuManager.h"
 #include "Art.h"
+#include "PetManager.h"
 
 using namespace std;
 
@@ -22,7 +23,12 @@ int main() {
 
     SaveManager saveManager = SaveManager(user);
     SaveManager* savePtr = &saveManager;
-    MenuManager menuManager = MenuManager(savePtr);
+
+    PetManager petManager = PetManager();
+    PetManager* petManagerPtr = &petManager;
+
+
+    MenuManager menuManager = MenuManager(savePtr,petManagerPtr);
 
     if (saveManager.userExists()) {
         cout << "Welcome back" << endl;

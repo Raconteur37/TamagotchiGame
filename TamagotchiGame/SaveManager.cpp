@@ -101,10 +101,8 @@ bool SaveManager::petExists(Pet* pet) {
 
 Pet* SaveManager::displayPets() {
 
-    vector<Pet> pets;
+    vector<Pet*> pets;
     vector<string> petInfo;
-
-    Pet pet = Pet();
 
     string line;
 
@@ -134,13 +132,15 @@ Pet* SaveManager::displayPets() {
         }
          */
 
-        pet.setOwner(petInfo[0]);
-        pet.setType(petInfo[1]);
-        pet.setName(petInfo[2]);
-        pet.setStrength(stod(petInfo[3]));
-        pet.setCore(stod(petInfo[4]));
-        pet.setLuck(stod(petInfo[5]));
-        pet.setEnergy(stoi(petInfo[6]));
+        Pet* pet = new Pet();
+
+        pet->setOwner(petInfo[0]);
+        pet->setName(petInfo[1]);
+        pet->setType(petInfo[2]);
+        pet->setStrength(stod(petInfo[3]));
+        pet->setCore(stod(petInfo[4]));
+        pet->setLuck(stod(petInfo[5]));
+        pet->setEnergy(stoi(petInfo[6]));
 
         pets.push_back(pet);
         petInfo.clear();
@@ -148,28 +148,27 @@ Pet* SaveManager::displayPets() {
 
     }
 
-    vector<Pet> petsAccess;
+    vector<Pet*> petsAccess;
 
     for (int x = 0; x < pets.size(); x++) {
         //pets[x].toString();
-        if (pets[x].getOwner() == *username) {
+        if (pets[x]->getOwner() == *username) {
             petsAccess.push_back(pets[x]);
         }
     }
 
     for (int z = 0; z < pets.size(); z++) {
-        cout << z+1 << ". " << petsAccess[z].getName() << " Type: " << petsAccess[z].getType() << endl;
+        cout << z+1 << ". " << petsAccess[z]->getName() << " Type: " << petsAccess[z]->getType() << endl;
     }
 
     int num;
     cout << "Type the number of what pet to access" << endl;
     cin >> num;
 
-    Pet finalPet = petsAccess[num-1];
-    Pet* finalPetPtr = &finalPet;
+    Pet* finalPet = petsAccess[num-1];
 
     file.close();
 
-    return finalPetPtr;
+    return finalPet;
 
 }

@@ -5,6 +5,7 @@ class Art {
 public:
 	Art();
 	void drawWelcome();
+    void drawPhoenix();
 
 
 

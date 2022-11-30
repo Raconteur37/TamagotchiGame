@@ -8,9 +8,10 @@ using namespace std;
 class PetManager {
 
 public:
+    PetManager();
     PetManager(Pet*);
+    void setPet(Pet*);
     bool mainMenu();
-    bool changeName();
     bool train();
 
 private:

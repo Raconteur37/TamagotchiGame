@@ -1,10 +1,11 @@
 #include "SaveManager.h"
+#include "PetManager.h"
 using namespace std;
 
 class MenuManager {
 
 public:
-	MenuManager(SaveManager*);
+	MenuManager(SaveManager*,PetManager*);
     bool mainMenu();
 	bool creatPet();
     bool accessPet();
@@ -15,5 +16,5 @@ public:
 private:
     string user;
     SaveManager* saveManager;
-
+    PetManager* petManager;
 };

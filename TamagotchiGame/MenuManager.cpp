@@ -4,11 +4,13 @@
 #include "MenuManager.h"
 #include "Pet.h"
 #include "Phoenix.h"
+#include "PetManager.h"
 
 using namespace std;
 
-MenuManager::MenuManager(SaveManager* saveManager) {
+MenuManager::MenuManager(SaveManager* saveManager, PetManager* petManager) {
     this->saveManager = saveManager;
+    this->petManager = petManager;
 }
 
 bool MenuManager::creatPet() {
@@ -45,9 +47,10 @@ bool MenuManager::accessPet() {
     Pet* pet = nullptr;
     cout << "What pet will you access today? " << endl;
     pet = saveManager->displayPets();
-    cout << "PET HERE " << pet->getName();
     if (pet != nullptr) {
-        return true;
+        petManager->setPet(pet);
+        petManager->mainMenu();
+        return false;
     } else {
         return false;
     }

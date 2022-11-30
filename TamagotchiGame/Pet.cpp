@@ -57,6 +57,10 @@ void Pet::setType(string type) {
     this->type = type;
 }
 
+void Pet::setExpedition(bool exp) {
+    isOnExpedition = exp;
+}
+
 string Pet::getName() {
     return name;
 }
@@ -83,6 +87,10 @@ string Pet::getType() {
 
 string Pet::getOwner() {
     return owner;
+}
+
+bool Pet::getExpedition() {
+    return isOnExpedition;
 }
 
 void Pet::addSpecialEnergy(int) {
