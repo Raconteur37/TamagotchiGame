@@ -23,14 +23,78 @@ void PetManager::setPet(Pet* pet) {
     this->pet = pet;
 }
 
+void PetManager::editValues(string difficulty,string type, bool add) {
+
+    if (type == "strength") {
+        if (difficulty == "easy") {
+            double amount = 1 + (rand() % 5);
+            if (add) {
+                pet->addStrength(amount);
+                cout << "--==You gained " << amount << " strength==--" << endl;
+                sleep(2);
+            } else {
+                pet->addStrength(amount * -1);
+                cout << "--==You lost " << amount << " of strength==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "medium") {
+            double amount = 2 + (rand() % 7);
+            if (add) {
+                pet->addStrength(amount);
+                cout << "--==You gained " << amount << " strength==--" << endl;
+                sleep(2);
+            } else {
+                pet->addStrength(amount * -1);
+                cout << "--==You lost " << amount << " of strength==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "hard") {
+            double amount = 4 + (rand() % 14);
+            if (add) {
+                pet->addStrength(amount);
+                cout << "--==You gained " << amount << " strength==--" << endl;
+                sleep(2);
+            } else {
+                pet->addStrength(amount * -1);
+                cout << "--==You lost " << amount << " of strength==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "insane") {
+            double amount = 8 + (rand() % 15);
+            if (add) {
+                pet->addStrength(amount);
+                cout << "--==You gained " << amount << " strength==--" << endl;
+                sleep(2);
+            } else {
+                pet->addStrength(amount * -1);
+                cout << "--==You lost " << amount << " of strength==--" << endl;
+                sleep(2);
+            }
+        }
+        if (pet->getStrength() >= 100) {
+            pet->setStrength(100);
+            cout << "You have achieved peak Strength...well done" << endl;
+            sleep(2);
+        }
+        return;
+    }
+
+
+}
+
 bool PetManager::trainStrength() {
 
-    string easyWords[] = {"yay","car","bar","size","light","pop","sit","lap"};
-    string mediumWords[] = {"tough","fight","battle","hard","laugh","crackle","trance","create","flying"};
-    string hardWords[] = {"seizing","blacksmith","thankfulness","infinite","uncanny","therefor","dominance","intrinsic","embraced","destroying","billiards","surviving","enduring"};
+    string easyWords[] = {"yay","car","bar","size","light","pop","sit","lap","fat","sat","yet","kite"};
+    string mediumWords[] = {"tough","fight","battle","hard","laugh","crackle","trance","create","flying","through","amplify"};
+    string hardWords[] = {"seizing","blacksmith","thankfulness","infinite","uncanny","therefor","dominance","intrinsic","embraced","destroying","billiards","surviving","enduring","swallowing","unbecoming"};
     string insaneWords[] = {"mississippi","incredible","hypercriticize","overzealous","hyperbolize","uncannyvalley","hahahahaha","goodluckwiththisone","extremedomination","benevolence","insurmountable","insanedifficulty"};
 
     int timeLimit;
+    int correctAmount;
+    int askAmount;
 
     string difficulty;
 
@@ -54,39 +118,107 @@ bool PetManager::trainStrength() {
     cout << "Im going to give you some words to type, type them within the time limit to increase strength" << endl;
     sleep(3);
     cout << "Let me check the stats of your " << pet->getType() << " real quick..." << endl;
+    sleep(3);
     if (difficulty == "easy") {
-
+        timeLimit = 4;
+        correctAmount = 3;
+        askAmount = 6;
+        cout << "Hmm, you are pretty weak so your difficulty is " << difficulty << endl;
+        sleep(3);
+        cout << "I will give you " << askAmount << " words..and you only need to get " << correctAmount << " right within " << timeLimit << " seconds" << endl;
     }
-    sleep(3);
-    cout << "Hmm, looks like your difficulty is " << difficulty << " and your time limit per word is " << timeLimit << endl;
-    sleep(3);
+    if (difficulty == "medium") {
+        timeLimit = 3;
+        correctAmount = 4;
+        askAmount = 7;
+        cout << "Hmm, you are still kinda weak so your difficulty is " << difficulty << endl;
+        sleep(3);
+        cout << "I will give you " << askAmount << " words..and you only need to get " << correctAmount << " right within " << timeLimit << " seconds" << endl;
+    }
+    if (difficulty == "hard") {
+        timeLimit = 2;
+        correctAmount = 7;
+        askAmount = 9;
+        cout << "You are getting there...here is your difficulty: " << difficulty << endl;
+        sleep(3);
+        cout << "I will give you " << askAmount << " words..and you only need to get " << correctAmount << " right within " << timeLimit << " seconds" << endl;
+    }
+    if (difficulty == "insane") {
+        timeLimit = 2;
+        correctAmount = 9;
+        askAmount = 10;
+        cout << "Im impressed....let me see if I shouldnt be...." << difficulty << endl;
+        sleep(3);
+        cout << "You get " << askAmount << " words..get " << correctAmount << " right within " << timeLimit << " seconds..." << endl;
+    }
+    sleep(4);
+    cout << "You ready?..." << endl;
+    sleep(2);
+    cout << "3" << endl;
+    sleep(1);
+    cout << "2" << endl;
+    sleep(1);
+    cout << "1" << endl;
+    sleep(1);
 
 
-    const string target = "cat";
-    const chrono::seconds time_limit( 2 );
+    int x = 0;
+    int correct = 0;
 
-    cout << "Type '" << target << "' - you can't lose" << endl;
-    string input;
+    const chrono::seconds time_limit( timeLimit );
 
+    while (x < askAmount) {
+        string targetWord;
+        if (difficulty == "easy") {
+            int targetNum = 0 + (rand() % (1+easyWords->size()));
+            targetWord = easyWords[targetNum];
+        }
+        if (difficulty == "medium") {
+            int targetNum = 0 + (rand() % (3+mediumWords->size()));
+            targetWord = mediumWords[targetNum];
+        }
+        if (difficulty == "hard") {
+            int targetNum = 0 + (rand() % (3+hardWords->size()));
+            targetWord = hardWords[targetNum];
+        }
+        if (difficulty == "insane") {
+            int targetNum = 0 + (rand() % (3+insaneWords->size()));
+            targetWord = insaneWords[targetNum];
+        }
 
+        cout << "Type " << targetWord << endl;
 
-    auto time_begin = chrono::steady_clock::now();
-    cin >> input;
-    auto time_end = chrono::steady_clock::now();
+        string input;
+        auto time_begin = chrono::steady_clock::now();
+        cin >> input;
+        auto time_end = chrono::steady_clock::now();
 
-    auto elapsed_milli = chrono::duration_cast<chrono::seconds>(
-            time_end - time_begin );
+        auto elapsed_milli = chrono::duration_cast<chrono::seconds>(
+                time_end - time_begin );
 
-    if( input == target && elapsed_milli <= time_limit )
-    {
-        cout << "u winnar" << endl;
+        if( input == targetWord && elapsed_milli <= time_limit ) {
+            cout << "Got it" << endl;
+            correct++;
+        } else {
+            cout << "Nope" << endl;
+        }
+        sleep(1);
+        cout << "Next..." << endl;
+        sleep(2);
+        x++;
+    }
+
+    if (correct >= correctAmount) {
+        cout << "Well done..." << endl;
+        sleep(2);
+        editValues(difficulty,"strength",true);
     } else {
-        cout << "nope" << endl;
+        cout << "Looks like you arent strong enough for this one " << pet->getName() << endl;
+        sleep(2);
+        editValues(difficulty,"strength",false);
     }
 
     return true;
-
-
 
 }
 

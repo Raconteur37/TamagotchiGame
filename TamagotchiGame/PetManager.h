@@ -13,6 +13,7 @@ public:
     void setPet(Pet*);
     bool mainMenu();
     bool trainStrength();
+    void editValues(string,string,bool);
 
 private:
     Pet* pet;
