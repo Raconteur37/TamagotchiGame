@@ -28,13 +28,13 @@ void PetManager::editValues(string difficulty,string type, bool add) {
     double core = pet->getCore();
     double mult;
     if (core <= 35) {
-        mult = 1.10;
+        mult = 1.05;
     } else if (core > 35 && core <= 60) {
-        mult = 1.30;
+        mult = 1.20;
     } else if (core > 60 && core <= 90) {
-        mult = 1.45;
+        mult = 1.35;
     } else if (core > 90) {
-        mult = 1.60;
+        mult = 1.45;
     }
 
     if (type == "strength") {
@@ -93,7 +93,75 @@ void PetManager::editValues(string difficulty,string type, bool add) {
         }
         return;
     }
+    if (type == "core") {
+        if (difficulty == "easy") {
+            double amount = 1 + (rand() % 3);
+            if (add) {
+                pet->addCore(amount * mult);
+                cout << "--==You gained " << amount << " core==--" << endl;
+                sleep(2);
+            } else {
+                pet->addCore(amount * -1);
+                cout << "--==You lost " << amount << " of core==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "medium") {
+            double amount = 2 + (rand() % 4);
+            if (add) {
+                pet->addCore(amount * mult);
+                cout << "--==You gained " << amount << " core==--" << endl;
+                sleep(2);
+            } else {
+                pet->addCore(amount * -1);
+                cout << "--==You lost " << amount << " of core==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "hard") {
+            double amount = 3 + (rand() % 7);
+            if (add) {
+                pet->addCore(amount * mult);
+                cout << "--==You gained " << amount << " core==--" << endl;
+                sleep(2);
+            } else {
+                pet->addCore(amount * -1);
+                cout << "--==You lost " << amount << " of core==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "insane") {
+            double amount = 3 + (rand() % 9);
+            if (add) {
+                pet->addCore(amount * mult);
+                cout << "--==You gained " << amount << " core==--" << endl;
+                sleep(2);
+            } else {
+                pet->addCore(amount * -1);
+                cout << "--==You lost " << amount << " of core==--" << endl;
+                sleep(2);
+            }
+        }
+        if (pet->getCore() >= 100) {
+            pet->setCore(100);
+            cout << "You have achieved max Core...well done, you have certified ethics" << endl;
+            sleep(2);
+        }
+        return;
+    }
 
+
+}
+
+string askOptions() {
+
+    string inp;
+    cout << "1. Pet" << endl;
+    cout << "2. Smack" << endl;
+    cout << "3. Ignore" << endl;
+    cout << "What do you do? " << endl;
+    cin >> inp;
+    return inp;
 
 }
 
@@ -112,21 +180,394 @@ bool PetManager::trainCore() {
 
     double core = pet->getCore();
 
+    string environment;
+
     if (core > 0 && core <= 20) {
         difficulty = "easy";
+        environment = "grasslands";
     } else if (core > 20 && core <= 45) {
         difficulty = "medium";
+        environment = "cave";
     } else if (core > 45 && core <= 80) {
         difficulty = "hard";
+        environment = "Ohio";
     } else if (core > 80 && core <= 99) {
         difficulty = "insane";
+        environment = "hell";
     } else if (core >= 100) {
         cout << "You have max core already...what are you doing here" << endl;
         return true;
     }
 
+    if (difficulty == "easy") {
+        if (pet->getEnergy() >= 6) {
+            cout << "This will cost 6 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 6)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "medium") {
+        if (pet->getEnergy() >= 8) {
+            cout << "This will cost 8 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 8)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "hard") {
+        if (pet->getEnergy() >= 10) {
+            cout << "This will cost 10 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 10)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "insane") {
+        if (pet->getEnergy() >= 15) {
+            cout << "This will cost 15 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 15)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
 
-
+    cout << "--===" << environment << "===--" << endl;
+    cout << "-You are walking and spot a puppy...he is in your way-" << endl;
+    string option;
+    option = askOptions();
+    if (option == "1") { // Pet
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",true);
+            cout << "aww you gave him a little pat" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",false);
+            cout << "he bit you" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",false);
+            cout << "never pet the puppy in Ohio..." << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",true);
+            cout << "just because hes in hell doesnt mean he doesnt like pets" << endl;
+        }
+    }
+    if (option == "2") { // Smack
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",false);
+            cout << "you monster" << endl;
+        }
+        if (environment == "cave") {
+            cout << "he wouldve bit you but you still dont do that" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",false);
+            cout << "       /^-^\\" << endl;
+            cout << "      / o o \\" << endl;
+            cout << "     /   Y   \\" << endl;
+            cout << "     V \\ v / V" << endl;
+            cout << "       / - \\" << endl;
+            cout << "      /    |" << endl;
+            cout << "(    /     |" << endl;
+            cout << " ===/___) ||" << endl;
+            sleep(15);
+            exit(1);
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "why..." << endl;
+        }
+    }
+    if (option == "3") { // Ignore
+        if (environment == "grasslands") {
+            cout << "You ignored the puppy...nothing happened" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",true);
+            cout << "Smart choice..." << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",true);
+            cout << "It had to be done" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "He bullied you and took your money for not petting him...guess thats why hes in hell" << endl;
+        }
+    }
+    sleep(4);
+    cout << "-You continue on your path...suddenly you meet a crying Ogre-" << endl;
+    sleep(3);
+    option = askOptions();
+    if (option == "1") { // Pet
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",true);
+            cout << "you gave him a pat to make him feel better" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",false);
+            cout << "he bit you...rude" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",true);
+            cout << "He transforms into a princess and kisses you" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "The devil appears and smites you" << endl;
+        }
+    }
+    if (option == "2") { // Smack
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",true);
+            cout << "Look...he was a scary ogre I understand" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",true);
+            cout << "You had an epic battle that lasted 4 hours, you came out victorious" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",false);
+            cout << "He literally almost killed you" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "The devil appears and smites you" << endl;
+        }
+    }
+    if (option == "3") { // Ignore
+        if (environment == "grasslands") {
+            cout << "You left him crying..i dont know if I should take away points or not" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",true);
+            cout << "You had an epic battle, you came out victorious" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",false);
+            cout << "He literally almost killed you for walking away" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",true);
+            cout << "The devil appears but just watches you leave" << endl;
+        }
+    }
+    sleep(4);
+    cout << "-As you walk, suddenly you meet a pretty (insert preferred gender) person, your owner starts to fall in love-" << endl;
+    sleep(3);
+    option = askOptions();
+    if (option == "1") { // Pet
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",true);
+            cout << "Your owner was happy that you like your future co-owner" << endl;
+        }
+        if (environment == "cave") {
+            cout << "A little weird that they are in a cave...the sparks didnt fly after you pet them" << endl;
+        }
+        if (environment == "Ohio") {
+            cout << "Wow you also showed interest in this person..suddenly you want a new owner" << endl;
+            sleep(3);
+            cout << "You talk to the person about switching owners, your owner over hears and confronts you" << endl;
+            sleep(3);
+            cout << "You tell your owner its nothing personal and that you think its time for a change..." << endl;
+            sleep(3);
+            cout << "Your owner eventually agrees because they just want the best for you" << endl;
+            sleep(3);
+            pet->setOwner("Ohio");
+            cout << "4 Years Later...." << endl;
+            sleep(3);
+            cout << "You are miserable and miss your old partner...you text them" << endl;
+            sleep(3);
+            cout << "There is no response..." << endl;
+            sleep(4);
+            cout << "Your partner leaves you with $139,568 in debt" << endl;
+            sleep(4);
+            cout << "The end." << endl;
+            exit(1);
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",true);
+            cout << "It's pretty obvious this is the devil trying to charm you but I respect the grind" << endl;
+        }
+    }
+    if (option == "2") { // Smack
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",false);
+            cout << "Really....." << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",true);
+            cout << "She turned into an evil witch and tried to kill you..good catch" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",true);
+            cout << "They are for the streets of Ohio anyway" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "Yes, refuse temptation...wait this isnt that type of game" << endl;
+        }
+    }
+    if (option == "3") { // Ignore
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",true);
+            cout << "You arent looking for a new owner right now" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",true);
+            cout << "Just...dont interact with someone like that in a cave" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",false);
+            cout << "They got mad and pushed in the soft part of your head..now you have a weird dent" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "Yes, refuse temptation...wait this isnt that type of game" << endl;
+        }
+    }
+    sleep(4);
+    cout << "-You are getting pretty tired...someone comes up to you and offers you some water" << endl;
+    sleep(3);
+    option = askOptions();
+    if (option == "1") { // Pet
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",true);
+            cout << "The person is confused as to why you did that but gave you water anyway" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",false);
+            cout << "he bit you......why do they always do that here" << endl;
+        }
+        if (environment == "Ohio") {
+            cout << "They gave you the water..." << endl;
+            sleep(3);
+            cout << "But you start to feel weird.." << endl;
+            sleep(3);
+            cout << "Ugh oh...." << endl;
+            sleep(3);
+            editValues(difficulty,"core",false);
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",false);
+            cout << "You took the water but ouch...it was throat hurty juice" << endl;
+        }
+    }
+    if (option == "2") { // Smack
+        if (environment == "grasslands") {
+            editValues(difficulty,"core",false);
+            cout << "They just wanted to give you water...geez" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty,"core",true);
+            cout << "You dont need that water, this cave is cold" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty,"core",false);
+            cout << "It was just a kid trying to raise enough money to get out of Ohio" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty,"core",true);
+            cout << "It was a test, the devil is impressed" << endl;
+        }
+    }
+    if (option == "3") { // Ignore
+        if (environment == "grasslands") {
+            cout << "Wow...your tough" << endl;
+        }
+        if (environment == "cave") {
+            cout << "Its a sketchy place to offer water anyway" << endl;
+        }
+        if (environment == "Ohio") {
+            cout << "The water wasnt even made in Ohio" << endl;
+        }
+        if (environment == "hell") {
+            cout << "Its pretty obvious water isnt offered in hell" << endl;
+        }
+    }
+    sleep(4);
+    cout << "-You are nearing the end of your journey....you see the puppy again..." << endl;
+    sleep(3);
+    option = askOptions();
+    if (option == "1") { // Pet
+        if (environment == "grasslands") {
+            editValues(difficulty, "core", true);
+            cout << "Looks like this journey hasnt changed you for the worse" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty, "core", true);
+            cout << "He felt bad and licked you this time" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty, "core", false);
+            cout << "I told you...never pet the puppy in Ohio" << endl;
+        }
+        if (environment == "hell") {
+            editValues(difficulty, "core", false);
+            cout << "He bit your hand off...it was a different puppy...how could you not tell?" << endl;
+        }
+    }
+    if (option == "2") { // Smack
+        if (environment == "grasslands") {
+            editValues(difficulty, "core", false);
+            cout << "How have you become a worse pet after all this" << endl;
+        }
+        if (environment == "cave") {
+            editValues(difficulty, "core", false);
+            cout << "You were supposed to forgive them..you learned nothing" << endl;
+        }
+        if (environment == "Ohio") {
+            editValues(difficulty, "core", false);
+            cout << "       /^-^\\" << endl;
+            cout << "      / o o \\" << endl;
+            cout << "     /   Y   \\" << endl;
+            cout << "     V \\ v / V" << endl;
+            cout << "       / - \\" << endl;
+            cout << "      /    |" << endl;
+            cout << "(    /     |" << endl;
+            cout << " ===/___) ||" << endl;
+            sleep(15);
+            exit(1);
+        }
+        if (environment == "hell") {
+            editValues(difficulty, "core", true);
+            cout << "The dog stands on two legs and stares at you" << endl;
+        }
+    }
+    if (option == "3") { // Ignore
+        if (environment == "grasslands") {
+            cout << "Nothing happened again...you are boring" << endl;
+        }
+        if (environment == "cave") {
+            cout << "You took the easy way out of this cave" << endl;
+        }
+        if (environment == "Ohio") {
+            cout << "       /^-^\\" << endl;
+            cout << "      / o o \\" << endl;
+            cout << "     /   Y   \\" << endl;
+            cout << "     V \\ v / V" << endl;
+            cout << "       / - \\" << endl;
+            cout << "      /    |" << endl;
+            cout << "(    /     |" << endl;
+            cout << " ===/___) ||" << endl;
+            sleep(15);
+            cout << "Wise choice...." << endl;
+            sleep(5);
+        }
+        if (environment == "hell") {
+            editValues(difficulty, "core", true);
+            cout << "The dog stands on two legs and stares at you" << endl;
+        }
+    }
+    sleep(3);
+    cout << "Well done..you have completed ethic core training" << endl;
+    sleep(3);
 
 }
 
@@ -340,7 +781,7 @@ bool PetManager::mainMenu() {
                 trainStrength();
             }
             if (subOption == 2) {
-
+                trainCore();
             }
         }
     }

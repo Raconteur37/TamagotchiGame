@@ -53,6 +53,61 @@ void SaveManager::addUser() {
 	outfile << username << endl;
 }
 
+void SaveManager::savePet(Pet* petGive) {
+
+    vector<Pet*> pets;
+    vector<string> petInfo;
+
+    string line;
+
+    ifstream file;
+    file.open("pets.txt");
+
+    if (!file.is_open()) {
+        cout << "Error opening file" << endl;
+    }
+
+    while (getline(file, line)) {
+
+        // username petname type 50 20 30 100
+
+        istringstream ss(line);
+        string word;
+        while (ss >> word) {
+            petInfo.push_back(word);
+        }
+        ss.clear();
+
+        /*
+        for (auto & i : petInfo) {
+            cout << "pet info " << i << endl;
+        }
+         */
+
+        if (petInfo[1] != petGive->getName()) {
+            Pet* pet = new Pet();
+
+            pet->setOwner(petInfo[0]);
+            pet->setName(petInfo[1]);
+            pet->setType(petInfo[2]);
+            pet->setStrength(stod(petInfo[3]));
+            pet->setCore(stod(petInfo[4]));
+            pet->setLuck(stod(petInfo[5]));
+            pet->setEnergy(stoi(petInfo[6]));
+
+            pets.push_back(pet);
+            petInfo.clear();
+        }
+
+        ofstream file;
+
+        file.open("pets.txt");
+
+
+
+    }
+}
+
 void SaveManager::addPet(Pet* pet) {
 
     string petStr = *username + " " + pet->getName() + " " + pet->getType() + " " + to_string(pet->getStrength()) + " " + to_string(pet->getCore()) + " " + to_string(pet->getLuck()) + " " +

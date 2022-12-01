@@ -15,6 +15,7 @@ public:
 	void addUser();
     void addPet(Pet*);
     bool petExists(Pet*);
+    void savePet(Pet*);
     Pet* displayPets();
 
 
