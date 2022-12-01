@@ -25,11 +25,23 @@ void PetManager::setPet(Pet* pet) {
 
 void PetManager::editValues(string difficulty,string type, bool add) {
 
+    double core = pet->getCore();
+    double mult;
+    if (core <= 35) {
+        mult = 1.10;
+    } else if (core > 35 && core <= 60) {
+        mult = 1.30;
+    } else if (core > 60 && core <= 90) {
+        mult = 1.45;
+    } else if (core > 90) {
+        mult = 1.60;
+    }
+
     if (type == "strength") {
         if (difficulty == "easy") {
             double amount = 1 + (rand() % 5);
             if (add) {
-                pet->addStrength(amount);
+                pet->addStrength(amount * mult);
                 cout << "--==You gained " << amount << " strength==--" << endl;
                 sleep(2);
             } else {
@@ -41,7 +53,7 @@ void PetManager::editValues(string difficulty,string type, bool add) {
         if (difficulty == "medium") {
             double amount = 2 + (rand() % 7);
             if (add) {
-                pet->addStrength(amount);
+                pet->addStrength(amount * mult);
                 cout << "--==You gained " << amount << " strength==--" << endl;
                 sleep(2);
             } else {
@@ -53,7 +65,7 @@ void PetManager::editValues(string difficulty,string type, bool add) {
         if (difficulty == "hard") {
             double amount = 4 + (rand() % 14);
             if (add) {
-                pet->addStrength(amount);
+                pet->addStrength(amount * mult);
                 cout << "--==You gained " << amount << " strength==--" << endl;
                 sleep(2);
             } else {
@@ -65,7 +77,7 @@ void PetManager::editValues(string difficulty,string type, bool add) {
         if (difficulty == "insane") {
             double amount = 8 + (rand() % 15);
             if (add) {
-                pet->addStrength(amount);
+                pet->addStrength(amount * mult);
                 cout << "--==You gained " << amount << " strength==--" << endl;
                 sleep(2);
             } else {
@@ -81,6 +93,39 @@ void PetManager::editValues(string difficulty,string type, bool add) {
         }
         return;
     }
+
+
+}
+
+bool PetManager::trainCore() {
+
+    cout << "Welcome to Core training...." << endl;
+    sleep(2);
+    cout << "Im going to put you in an environment...this will change based on your core level" << endl;
+    sleep(3);
+    cout << "Choose the correct actions and increase your core, but make the wrong decision and it'll go down" << endl;
+    sleep(4);
+    cout << "Ready?.." << endl;
+    sleep(2);
+
+    string difficulty;
+
+    double core = pet->getCore();
+
+    if (core > 0 && core <= 20) {
+        difficulty = "easy";
+    } else if (core > 20 && core <= 45) {
+        difficulty = "medium";
+    } else if (core > 45 && core <= 80) {
+        difficulty = "hard";
+    } else if (core > 80 && core <= 99) {
+        difficulty = "insane";
+    } else if (core >= 100) {
+        cout << "You have max core already...what are you doing here" << endl;
+        return true;
+    }
+
+
 
 
 }
@@ -113,6 +158,44 @@ bool PetManager::trainStrength() {
         return true;
     }
 
+    if (difficulty == "easy") {
+        if (pet->getEnergy() >= 6) {
+           cout << "This will cost 6 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 6)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "medium") {
+        if (pet->getEnergy() >= 8) {
+            cout << "This will cost 8 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 8)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "hard") {
+        if (pet->getEnergy() >= 10) {
+            cout << "This will cost 10 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 10)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "insane") {
+        if (pet->getEnergy() >= 15) {
+            cout << "This will cost 15 energy" << endl;
+        } else {
+            cout << "You do not have enough energy (need 15)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+
+    sleep(2);
     cout << "Welcome to strength training" << endl;
     sleep(3);
     cout << "Im going to give you some words to type, type them within the time limit to increase strength" << endl;
@@ -255,6 +338,9 @@ bool PetManager::mainMenu() {
             cin >> subOption;
             if (subOption == 1) {
                 trainStrength();
+            }
+            if (subOption == 2) {
+
             }
         }
     }
