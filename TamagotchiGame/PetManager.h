@@ -2,6 +2,7 @@
 #define TAMAGOTCHIGAME_PETMANAGER_H
 
 #include "Pet.h"
+#include "SaveManager.h"
 
 using namespace std;
 
@@ -11,7 +12,7 @@ public:
     PetManager();
     PetManager(Pet*);
     void setPet(Pet*);
-    //void setSaveManager(SaveManager*);
+    void setSaveManager(SaveManager*);
     bool mainMenu();
     bool trainStrength();
     bool trainCore();
@@ -20,7 +21,7 @@ public:
 
 private:
     Pet* pet;
-    //SaveManager* saveManager;
+    SaveManager* saveManager;
 };
 
 

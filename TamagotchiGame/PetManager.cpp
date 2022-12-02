@@ -17,11 +17,11 @@ PetManager::PetManager() {
 PetManager::PetManager(Pet* pet) {
     this->pet = pet;
 }
-/*
+
 void PetManager::setSaveManager(SaveManager* saveManager) {
     this->saveManager = saveManager;
 }
- */
+
 
 void PetManager::setPet(Pet* pet) {
     this->pet = pet;
@@ -203,15 +203,7 @@ void PetManager::editValues(string difficulty,string type, bool add) {
                 sleep(2);
             }
         }
-        if (pet->getLuck() >= 100) {
-            pet->setLuck(100);
-            cout << "You have achieved max Luck...how...." << endl;
-            sleep(2);
-        }
-        return;
     }
-
-
 }
 
 string editFeeling(double luck) {
@@ -314,7 +306,7 @@ bool PetManager::trainLuck() {
 
     cout << "Looks like you are heading to --==" << casino << "==--" << endl;
     cout << "Goodluck..." <<endl;
-    sleep(3);
+    sleep(4);
     cout << "First off your pet is going to play Poker" << endl;
 
     int pokerWins = 0;
@@ -331,17 +323,17 @@ bool PetManager::trainLuck() {
 
     sleep(3);
     if (difficulty == "medium") {
-        pokerPlays += 2;
-        blackjackPlays += 2;
+        pokerPlays += 1;
+        blackjackPlays += 1;
     }
     if (difficulty == "hard") {
-        pokerPlays += 3;
+        pokerPlays += 2;
         blackjackPlays += 2;
         crapsPlays += 1;
     }
     if (difficulty == "insane") {
-        pokerPlays += 4;
-        blackjackPlays += 1;
+        pokerPlays += 3;
+        blackjackPlays += 2;
         crapsPlays += 2;
     }
     cout << "Your pet will play " << pokerPlays << " poker games" << endl;
@@ -486,24 +478,7 @@ bool PetManager::trainLuck() {
     sleep(3);
     cout << "They actually won " << pokerWins << endl;
     sleep(3);
-
-    if (blackjackPlays > 0) {
-        cout << "You said " << pet->getName() << " would win " << blackjackPredictWins << " blackjack games" << endl;
-        sleep(3);
-        cout << "They actually won " << blackjackWins << endl;
-    }
-
-    if (crapsPlays > 0) {
-        cout << "You said " << pet->getName() << " would win " << crapsPredictWins << " craps games" << endl;
-        sleep(3);
-        cout << "They actually won " << crapsWins << endl;
-    }
-
-    cout << "Now time to adjust your luck based on those metrics" << endl;
-    sleep(3);
-
-    int totalPlays = pokerPlays + blackjackPlays + crapsPlays;
-
+    cout << "Here are your rewards " << endl;
     for (int z = 0; z < pokerPlays; z++) {
 
         if (pokerPredictWins <= 0) {
@@ -514,31 +489,48 @@ bool PetManager::trainLuck() {
         }
         sleep(2);
     }
+    sleep(3);
 
-    for (int z = 0; z < blackjackPlays; z++) {
+    if (blackjackPlays > 0) {
+        cout << "You said " << pet->getName() << " would win " << blackjackPredictWins << " blackjack games" << endl;
+        sleep(3);
+        cout << "They actually won " << blackjackWins << endl;
 
-        if (blackjackPredictWins <= 0) {
-            editValues(difficulty,"luck",false);
-        } else {
-            editValues(difficulty,"luck",true);
-            blackjackPredictWins--;
+        for (int z = 0; z < blackjackPlays; z++) {
+
+            if (blackjackPredictWins <= 0) {
+                editValues(difficulty,"luck",false);
+            } else {
+                editValues(difficulty,"luck",true);
+                blackjackPredictWins--;
+            }
+            sleep(2);
         }
-        sleep(2);
+
     }
 
-    for (int z = 0; z < crapsPlays; z++) {
+    sleep(3);
 
-        if (crapsPredictWins <= 0) {
-            editValues(difficulty,"luck",false);
-        } else {
-            editValues(difficulty,"luck",true);
-            crapsPredictWins--;
+    if (crapsPlays > 0) {
+        cout << "You said " << pet->getName() << " would win " << crapsPredictWins << " craps games" << endl;
+        sleep(3);
+        cout << "They actually won " << crapsWins << endl;
+
+        for (int z = 0; z < crapsPlays; z++) {
+
+            if (crapsPredictWins <= 0) {
+                editValues(difficulty,"luck",false);
+            } else {
+                editValues(difficulty,"luck",true);
+                crapsPredictWins--;
+            }
+            sleep(2);
         }
-        sleep(2);
-    }
 
-    cout << "See you next time" << endl;
+    }
     sleep(2);
+    cout << "See you next time" << endl;
+    sleep(3);
 
     return true;
 
@@ -1192,7 +1184,7 @@ bool PetManager::mainMenu() {
         }
 
         if (option == 3) {
-            //saveManager->savePet(pet);
+            saveManager->savePet(pet);
         }
     }
 

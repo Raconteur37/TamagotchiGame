@@ -1,10 +1,11 @@
+#ifndef TAMAGOTCHIGAME_SAVEMANAGER_H
+#define TAMAGOTCHIGAME_SAVEMANAGER_H
+
 #include <string>
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
 #include "Pet.h"
-#include "PetManager.h"
-
 
 using namespace std;
 
@@ -31,3 +32,5 @@ private:
 
 
 };
+
+#endif TAMAGOTCHIGAME_SAVEMANAGER_H

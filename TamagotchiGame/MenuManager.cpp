@@ -75,7 +75,7 @@ bool MenuManager::accessPet() {
     pet = saveManager->displayPets();
     if (pet != nullptr) {
         petManager->setPet(pet);
-        //petManager->setSaveManager(saveManager);
+        petManager->setSaveManager(saveManager);
         petManager->mainMenu();
         return false;
     } else {

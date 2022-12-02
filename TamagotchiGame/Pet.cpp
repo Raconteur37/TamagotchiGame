@@ -31,7 +31,7 @@ void Pet::addLuck(double luck) {
 }
 
 void Pet::addEnergy(double energy) {
-    this->energy = energy;
+    this->energy += energy;
 }
 
 void Pet::setStrength(double strength) {
