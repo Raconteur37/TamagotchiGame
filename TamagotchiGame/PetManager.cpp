@@ -153,6 +153,42 @@ void PetManager::editValues(string difficulty,string type, bool add) {
 
 }
 
+string editFeeling(double luck) {
+
+    string feeling;
+
+    int randNum;
+
+    if (luck > 0 && luck <= 20) {
+        randNum = (1 + rand() % 85);
+    } else if (luck > 20 && luck <= 45) {
+        randNum = (1 + rand() % 70);
+    } else if (luck > 45 && luck <= 80) {
+        randNum = (1 + rand() % 60);
+    } else if (luck > 80 && luck <= 99) {
+        randNum = (1 + rand() % 50);
+    }
+
+    if (randNum > 0 && randNum <= 20) {
+        feeling = "miserable";
+    }
+    if (randNum > 20 && randNum <= 25) {
+        feeling = "anxious";
+    }
+    if (randNum > 25 && randNum <= 30) {
+        feeling = "neutral";
+    }
+    if (randNum > 30 && randNum <= 40) {
+        feeling = "confident";
+    }
+    if (randNum > 40) {
+        feeling = "overzealous";
+    }
+
+    return feeling;
+
+}
+
 bool PetManager::trainLuck() {
 
     cout << "Welcome to Luck training..." << endl;
@@ -230,15 +266,18 @@ bool PetManager::trainLuck() {
         sleep(3);
     }
 
-    bool miserable = false;
-    bool anxious = false;
-    bool neutral = false;
-    bool confident = false;
-    bool overzealous = false;
+    string feeling;
 
+    feeling = editFeeling(luck);
 
+    cout << "Time to play poker, your pet is feeling " << feeling << endl;
+    sleep(3);
+    cout << "Remember the less confident your pet is, the more likely they are to lose, but you can win more if they win your predicted amount" << endl;
+    sleep(3);
     cout << "Now its time to place your bets, how many games of Poker will your pet win? (They get " << pokerPlays << " plays)" << endl;
-    cin >> pokerPlays;
+    cin >> pokerPredictWins;
+    sleep(1);
+    cout << "I see..." << endl;
     sleep(2);
     if (blackjackPlays > 0) {
         cout << "How many games of Blackjack will your pet win? (They get " << blackjackPlays << " plays)" << endl;
@@ -253,19 +292,18 @@ bool PetManager::trainLuck() {
 
     int x = 0;
 
-    int randNum = 1 + (rand() % 5);
+    while(x < pokerPlays) {
 
-    if (randNum == 1) {
-        miserable = true;
-        anxious = false;
-        neutral = false;
-        confident = false;
-        overzealous = false;
+        cout << "Welcome to Poker at the " << casino << endl;
+        sleep(2);
+
+
+
     }
 
 
-    cout << "Time to play poker, your pet is feeling " << endl;
-    //while (x < )
+
+
 
 
 
