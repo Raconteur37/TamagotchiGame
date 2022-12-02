@@ -11,6 +11,7 @@ public:
     PetManager();
     PetManager(Pet*);
     void setPet(Pet*);
+    //void setSaveManager(SaveManager*);
     bool mainMenu();
     bool trainStrength();
     bool trainCore();
@@ -19,7 +20,7 @@ public:
 
 private:
     Pet* pet;
-
+    //SaveManager* saveManager;
 };
 
 

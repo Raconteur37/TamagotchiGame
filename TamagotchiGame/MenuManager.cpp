@@ -5,6 +5,7 @@
 #include "Pet.h"
 #include "Phoenix.h"
 #include "Panda.h"
+#include "Bunnies.h"
 #include "PetManager.h"
 
 using namespace std;
@@ -52,7 +53,7 @@ bool MenuManager::creatPet() {
         string name;
         cout << "What will you name your Bunnies? " << endl;
         cin >> name;
-        pet = new Panda(name,"bunnies");
+        pet = new Bunnies(name,"bunnies");
         if (!saveManager->petExists(pet)) {
             saveManager->addPet(pet);
             cout << pet->getName() + " has been made!" << endl;
@@ -74,6 +75,7 @@ bool MenuManager::accessPet() {
     pet = saveManager->displayPets();
     if (pet != nullptr) {
         petManager->setPet(pet);
+        //petManager->setSaveManager(saveManager);
         petManager->mainMenu();
         return false;
     } else {

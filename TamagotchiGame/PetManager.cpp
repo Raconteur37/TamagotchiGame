@@ -2,10 +2,9 @@
 #include <iostream>
 
 #include "PetManager.h"
+#include "SaveManager.h"
 #include "Pet.h"
-#include "Phoenix.h"
 #include "Art.h"
-#include <windows.h>
 #include <unistd.h>
 #include <chrono>
 
@@ -18,6 +17,11 @@ PetManager::PetManager() {
 PetManager::PetManager(Pet* pet) {
     this->pet = pet;
 }
+/*
+void PetManager::setSaveManager(SaveManager* saveManager) {
+    this->saveManager = saveManager;
+}
+ */
 
 void PetManager::setPet(Pet* pet) {
     this->pet = pet;
@@ -150,6 +154,63 @@ void PetManager::editValues(string difficulty,string type, bool add) {
         return;
     }
 
+    if (type == "luck") {
+        if (difficulty == "easy") {
+            double amount = 1 + (rand() % 3);
+            if (add) {
+                pet->addLuck(amount * mult);
+                cout << "--==You gained " << amount << " luck==--" << endl;
+                sleep(2);
+            } else {
+                pet->addLuck(amount * -1);
+                cout << "--==You lost " << amount << " of luck==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "medium") {
+            double amount = 2 + (rand() % 4);
+            if (add) {
+                pet->addLuck(amount * mult);
+                cout << "--==You gained " << amount << " luck==--" << endl;
+                sleep(2);
+            } else {
+                pet->addLuck(amount * -1);
+                cout << "--==You lost " << amount << " of luck==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "hard") {
+            double amount = 3 + (rand() % 7);
+            if (add) {
+                pet->addLuck(amount * mult);
+                cout << "--==You gained " << amount << " luck==--" << endl;
+                sleep(2);
+            } else {
+                pet->addLuck(amount * -1);
+                cout << "--==You lost " << amount << " of luck==--" << endl;
+                sleep(2);
+            }
+        }
+        if (difficulty == "insane") {
+            double amount = 3 + (rand() % 9);
+            if (add) {
+                pet->addLuck(amount * mult);
+                cout << "--==You gained " << amount << " luck==--" << endl;
+                sleep(2);
+            } else {
+                pet->addLuck(amount * -1);
+                cout << "--==You lost " << amount << " of luck==--" << endl;
+                sleep(2);
+            }
+        }
+        if (pet->getLuck() >= 100) {
+            pet->setLuck(100);
+            cout << "You have achieved max Luck...how...." << endl;
+            sleep(2);
+        }
+        return;
+    }
+
 
 }
 
@@ -186,6 +247,34 @@ string editFeeling(double luck) {
     }
 
     return feeling;
+
+}
+
+bool determineWin(string feeling) {
+
+    int randNum;
+
+    if (feeling == "miserable") {
+        randNum = (1 + rand() % 75);
+    }
+    if (feeling == "anxious") {
+        randNum = (1 + rand() % 60);
+    }
+    if (feeling == "neutral") {
+        randNum = (1 + rand() % 40);
+    }
+    if (feeling == "confident") {
+        randNum = (1 + rand() % 30);
+    }
+    if (feeling == "overzealous") {
+        randNum = (1 + rand() % 25);
+    }
+
+    if (randNum <= 20) {
+        return true;
+    } else {
+        return false;
+    }
 
 }
 
@@ -281,36 +370,177 @@ bool PetManager::trainLuck() {
     sleep(2);
     if (blackjackPlays > 0) {
         cout << "How many games of Blackjack will your pet win? (They get " << blackjackPlays << " plays)" << endl;
-        cin >> blackjackPlays;
+        cin >> blackjackPredictWins;
         sleep(3);
     }
     if (crapsPlays > 0) {
         cout << "How many games of Craps will your pet win? (They get " << crapsPlays << " plays)" << endl;
-        cin >> crapsPlays;
+        cin >> crapsPredictWins;
         sleep(3);
     }
 
     int x = 0;
 
+    cout << "Welcome to Poker at the " << casino << endl;
+    sleep(2);
+
+    cout << "Your pet is still feeling " << feeling << " poor thing...(not)" << endl;
+    sleep(3);
+
     while(x < pokerPlays) {
 
-        cout << "Welcome to Poker at the " << casino << endl;
+        cout << "Next poker hand..." << endl;
+        sleep(3);
+        cout << "Dealing the cards..." << endl;
+        sleep(3);
+        feeling = editFeeling(luck);
+        cout << "Your pet is feeling " << feeling << endl;
         sleep(2);
+        cout << "Will they win this hand? (You said theyd win " << pokerPredictWins << " hands)" << endl;
+        sleep(3);
+        cout << "Lets see" << endl;
+        sleep(2);
+        cout << "Aaaannnnnndddd......" << endl;
+        sleep(3);
+        bool win = determineWin(feeling);
+        if (win) {
+            pokerWins++;
+            cout << pet->getName() << " won the hand!" << endl;
+        } else {
+            cout << pet->getName() << " lost the hand" << endl;
+        }
+        sleep(3);
 
+        x++;
 
+    }
+    cout << "Well that was fun...for me" << endl;
+    sleep(3);
+
+    x = 0;
+
+    while (x < blackjackPlays) {
+
+        cout << "Next Blackjack hand..." << endl;
+        sleep(3);
+        cout << "Dealing the cards..." << endl;
+        sleep(3);
+        feeling = editFeeling(luck);
+        cout << "Your pet is feeling " << feeling << endl;
+        sleep(2);
+        cout << "Will they win this hand? (You said theyd win " << blackjackPredictWins << " hands)" << endl;
+        sleep(3);
+        cout << "Lets see" << endl;
+        sleep(2);
+        cout << "Aaaannnnnndddd......" << endl;
+        sleep(3);
+        bool win = determineWin(feeling);
+        if (win) {
+            blackjackWins++;
+            cout << pet->getName() << " won the hand!" << endl;
+        } else {
+            cout << pet->getName() << " lost the hand" << endl;
+        }
+        sleep(3);
+
+        x++;
 
     }
 
+    cout << "Isn't gambling just great..." << endl;
+    sleep(3);
 
+    x = 0;
 
+    while (x < crapsPlays) {
 
+        cout << "Next Craps roll..." << endl;
+        sleep(3);
+        cout << "Rolling the dice..." << endl;
+        sleep(3);
+        feeling = editFeeling(luck);
+        cout << "Your pet is feeling " << feeling << endl;
+        sleep(2);
+        cout << "Will they win this roll? (You said theyd win " << crapsPredictWins << " hands)" << endl;
+        sleep(3);
+        cout << "Lets see" << endl;
+        sleep(2);
+        cout << "Aaaannnnnndddd......" << endl;
+        sleep(3);
+        bool win = determineWin(feeling);
+        if (win) {
+            crapsWins++;
+            cout << pet->getName() << " won the roll!" << endl;
+        } else {
+            cout << pet->getName() << " lost the roll" << endl;
+        }
+        sleep(3);
 
+        x++;
 
+    }
 
+    cout << "Well that's all for now..let's see how much you won" << endl;
+    sleep(2);
+    cout << "You said " << pet->getName() << " would win " << pokerPredictWins << " poker games" << endl;
+    sleep(3);
+    cout << "They actually won " << pokerWins << endl;
+    sleep(3);
 
+    if (blackjackPlays > 0) {
+        cout << "You said " << pet->getName() << " would win " << blackjackPredictWins << " blackjack games" << endl;
+        sleep(3);
+        cout << "They actually won " << blackjackWins << endl;
+    }
 
+    if (crapsPlays > 0) {
+        cout << "You said " << pet->getName() << " would win " << crapsPredictWins << " craps games" << endl;
+        sleep(3);
+        cout << "They actually won " << crapsWins << endl;
+    }
 
+    cout << "Now time to adjust your luck based on those metrics" << endl;
+    sleep(3);
 
+    int totalPlays = pokerPlays + blackjackPlays + crapsPlays;
+
+    for (int z = 0; z < pokerPlays; z++) {
+
+        if (pokerPredictWins <= 0) {
+            editValues(difficulty,"luck",false);
+        } else {
+            editValues(difficulty,"luck",true);
+            pokerPredictWins--;
+        }
+        sleep(2);
+    }
+
+    for (int z = 0; z < blackjackPlays; z++) {
+
+        if (blackjackPredictWins <= 0) {
+            editValues(difficulty,"luck",false);
+        } else {
+            editValues(difficulty,"luck",true);
+            blackjackPredictWins--;
+        }
+        sleep(2);
+    }
+
+    for (int z = 0; z < crapsPlays; z++) {
+
+        if (crapsPredictWins <= 0) {
+            editValues(difficulty,"luck",false);
+        } else {
+            editValues(difficulty,"luck",true);
+            crapsPredictWins--;
+        }
+        sleep(2);
+    }
+
+    cout << "See you next time" << endl;
+    sleep(2);
+
+    return true;
 
 }
 
@@ -730,6 +960,8 @@ bool PetManager::trainCore() {
     cout << "Well done..you have completed ethic core training" << endl;
     sleep(3);
 
+    return true;
+
 }
 
 bool PetManager::trainStrength() {
@@ -922,9 +1154,9 @@ bool PetManager::mainMenu() {
         cout << "Currently: " << pet->getStatus() << endl;
         cout << "Strength: " << pet->getStrength() << " Core: " << pet->getCore() << " Luck: " << pet->getLuck() << " Energy: " << pet->getEnergy() << endl;
         cout << "1. Train" << endl;
-        cout << "2. Send To Explore" << endl;
-        cout << "3. Pass the time" << endl;
-        cout << "4. Save and exit" << endl;
+        //cout << "2. Send To Explore" << endl;
+        cout << "2. Pass the time" << endl;
+        cout << "3. Save and exit" << endl;
         cout << "Choose an option: ";
         int option;
         cin >> option;
@@ -951,7 +1183,7 @@ bool PetManager::mainMenu() {
             }
         }
 
-        if (option == 3) {
+        if (option == 2) {
             cout << "Your pet begins to rest....give it some time" << endl;
             sleep(10);
             int energy = 1 + (rand() % 10);
@@ -959,11 +1191,10 @@ bool PetManager::mainMenu() {
             cout << "Your pet has gained " << energy << " energy" << endl;
         }
 
-
-
+        if (option == 3) {
+            //saveManager->savePet(pet);
+        }
     }
 
-
-
-
+    return true;
 }

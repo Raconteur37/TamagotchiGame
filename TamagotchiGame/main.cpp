@@ -1,9 +1,7 @@
 #include <string>
 #include <iostream>
-
-#include "Pet.h"
-#include "Phoenix.h"
 #include "MenuManager.h"
+#include "SaveManager.h"
 #include "Art.h"
 #include "PetManager.h"
 

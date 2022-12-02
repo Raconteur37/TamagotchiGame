@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include "Pet.h"
+#include "PetManager.h"
+
 
 using namespace std;
 
