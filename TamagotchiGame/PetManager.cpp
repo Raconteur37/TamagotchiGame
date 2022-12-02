@@ -191,20 +191,69 @@ bool PetManager::trainLuck() {
     cout << "Goodluck..." <<endl;
     sleep(3);
     cout << "First off your pet is going to play Poker" << endl;
+
     int pokerWins = 0;
     int pokerPlays = 4;
+    int pokerPredictWins = 0;
+
+    int blackjackWins = 0;
+    int blackjackPlays = 0;
+    int blackjackPredictWins = 0;
+
+    int crapsWins = 0;
+    int crapsPlays = 0;
+    int crapsPredictWins = 0;
+
     sleep(3);
     if (difficulty == "medium") {
         pokerPlays += 2;
+        blackjackPlays += 2;
     }
     if (difficulty == "hard") {
         pokerPlays += 3;
+        blackjackPlays += 2;
+        crapsPlays += 1;
     }
     if (difficulty == "insane") {
         pokerPlays += 4;
+        blackjackPlays += 1;
+        crapsPlays += 2;
     }
     cout << "Your pet will play " << pokerPlays << " poker games" << endl;
-    sleep(4);
+    sleep(3);
+    if (blackjackPlays > 0) {
+        cout << "Your pet will play " << blackjackPlays << " blackjack games" << endl;
+        sleep(3);
+    }
+    if (crapsPlays > 0) {
+        cout << "Your pet will play " << crapsPlays << " craps games" << endl;
+        sleep(3);
+    }
+
+    bool miserable = false;
+    bool anxious = false;
+    bool neutral = false;
+    bool confident = false;
+    bool overzealous = false;
+
+
+    cout << "Now its time to place your bets, how many games of Poker will your pet win? (They get " << pokerPlays << " plays)" << endl;
+    cin >> pokerPlays;
+    sleep(2);
+    if (blackjackPlays > 0) {
+        cout << "How many games of Blackjack will your pet win? (They get " << blackjackPlays << " plays)" << endl;
+        cin >> blackjackPlays;
+        sleep(3);
+    }
+    if (crapsPlays > 0) {
+        cout << "How many games of Craps will your pet win? (They get " << crapsPlays << " plays)" << endl;
+        cin >> crapsPlays;
+        sleep(3);
+    }
+
+
+
+
 
 
 
