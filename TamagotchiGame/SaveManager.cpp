@@ -102,8 +102,80 @@ void SaveManager::savePet(Pet* petGive) {
 
         file.open("pets.txt");
 
+        string petStr = petGive->getOwner() + " " + petGive->getName() + " " + petGive->getType() + " " + to_string(petGive->getStrength()) + " " + to_string(petGive->getCore()) + " " + to_string(petGive->getLuck()) + " " +
+                        to_string(petGive->getEnergy());
 
+        file << petStr << endl;
 
+        for (int x = 0; x < pets.size(); x++) {
+            petStr = pets[x]->getOwner() + " " + pets[x]->getName() + " " + pets[x]->getType() + " " + to_string(pets[x]->getStrength()) + " " + to_string(pets[x]->getCore()) + " " + to_string(pets[x]->getLuck()) + " " +
+                            to_string(pets[x]->getEnergy());
+            file << petStr << endl;
+        }
+
+    }
+}
+
+void SaveManager::deletePet() {
+
+    Pet* petGive = displayPets();
+
+    vector<Pet*> pets;
+    vector<string> petInfo;
+
+    string line;
+
+    ifstream file;
+    file.open("pets.txt");
+
+    if (!file.is_open()) {
+        cout << "Error opening file" << endl;
+    }
+
+    while (getline(file, line)) {
+
+        // username petname type 50 20 30 100
+
+        istringstream ss(line);
+        string word;
+        while (ss >> word) {
+            petInfo.push_back(word);
+        }
+        ss.clear();
+
+        /*
+        for (auto & i : petInfo) {
+            cout << "pet info " << i << endl;
+        }
+         */
+
+        if (petInfo[1] != petGive->getName()) {
+            Pet* pet = new Pet();
+
+            pet->setOwner(petInfo[0]);
+            pet->setName(petInfo[1]);
+            pet->setType(petInfo[2]);
+            pet->setStrength(stod(petInfo[3]));
+            pet->setCore(stod(petInfo[4]));
+            pet->setLuck(stod(petInfo[5]));
+            pet->setEnergy(stoi(petInfo[6]));
+
+            pets.push_back(pet);
+            petInfo.clear();
+        }
+
+        ofstream file;
+
+        file.open("pets.txt");
+
+        for (int x = 0; x < pets.size(); x++) {
+            string petStr = pets[x]->getOwner() + " " + pets[x]->getName() + " " + pets[x]->getType() + " " + to_string(pets[x]->getStrength()) + " " + to_string(pets[x]->getCore()) + " " + to_string(pets[x]->getLuck()) + " " +
+                     to_string(pets[x]->getEnergy());
+            file << petStr << endl;
+        }
+
+        cout << "Deleted " << petGive->getName() << endl;
+        delete petGive;
     }
 }
 

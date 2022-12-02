@@ -19,6 +19,7 @@ public:
     void addPet(Pet*);
     bool petExists(Pet*);
     void savePet(Pet*);
+    void deletePet();
     Pet* displayPets();
 
 

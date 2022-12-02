@@ -85,6 +85,7 @@ bool MenuManager::accessPet() {
 
 bool MenuManager::deletePet() {
 
+    saveManager->deletePet();
     return false;
 }
 

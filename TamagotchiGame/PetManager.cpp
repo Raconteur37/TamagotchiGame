@@ -304,6 +304,47 @@ bool PetManager::trainLuck() {
         return true;
     }
 
+    if (difficulty == "easy") {
+        if (pet->getEnergy() >= 6) {
+            cout << "This will cost 6 energy" << endl;
+            pet->addEnergy(-6);
+        } else {
+            cout << "You do not have enough energy (need 6)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "medium") {
+        if (pet->getEnergy() >= 8) {
+            cout << "This will cost 8 energy" << endl;
+            pet->addEnergy(-8);
+        } else {
+            cout << "You do not have enough energy (need 8)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "hard") {
+        if (pet->getEnergy() >= 10) {
+            cout << "This will cost 10 energy" << endl;
+            pet->addEnergy(-10);
+        } else {
+            cout << "You do not have enough energy (need 10)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+    if (difficulty == "insane") {
+        if (pet->getEnergy() >= 15) {
+            cout << "This will cost 15 energy" << endl;
+            pet->addEnergy(-15);
+        } else {
+            cout << "You do not have enough energy (need 15)" << endl;
+            sleep(2);
+            return false;
+        }
+    }
+
     cout << "Looks like you are heading to --==" << casino << "==--" << endl;
     cout << "Goodluck..." <<endl;
     sleep(4);
@@ -585,6 +626,7 @@ bool PetManager::trainCore() {
     if (difficulty == "easy") {
         if (pet->getEnergy() >= 6) {
             cout << "This will cost 6 energy" << endl;
+            pet->addEnergy(-6);
         } else {
             cout << "You do not have enough energy (need 6)" << endl;
             sleep(2);
@@ -594,6 +636,7 @@ bool PetManager::trainCore() {
     if (difficulty == "medium") {
         if (pet->getEnergy() >= 8) {
             cout << "This will cost 8 energy" << endl;
+            pet->addEnergy(-8);
         } else {
             cout << "You do not have enough energy (need 8)" << endl;
             sleep(2);
@@ -603,6 +646,7 @@ bool PetManager::trainCore() {
     if (difficulty == "hard") {
         if (pet->getEnergy() >= 10) {
             cout << "This will cost 10 energy" << endl;
+            pet->addEnergy(-10);
         } else {
             cout << "You do not have enough energy (need 10)" << endl;
             sleep(2);
@@ -612,6 +656,7 @@ bool PetManager::trainCore() {
     if (difficulty == "insane") {
         if (pet->getEnergy() >= 15) {
             cout << "This will cost 15 energy" << endl;
+            pet->addEnergy(-15);
         } else {
             cout << "You do not have enough energy (need 15)" << endl;
             sleep(2);
@@ -987,6 +1032,7 @@ bool PetManager::trainStrength() {
     if (difficulty == "easy") {
         if (pet->getEnergy() >= 6) {
            cout << "This will cost 6 energy" << endl;
+           pet->addEnergy(-6);
         } else {
             cout << "You do not have enough energy (need 6)" << endl;
             sleep(2);
@@ -996,6 +1042,7 @@ bool PetManager::trainStrength() {
     if (difficulty == "medium") {
         if (pet->getEnergy() >= 8) {
             cout << "This will cost 8 energy" << endl;
+            pet->addEnergy(-8);
         } else {
             cout << "You do not have enough energy (need 8)" << endl;
             sleep(2);
@@ -1005,6 +1052,7 @@ bool PetManager::trainStrength() {
     if (difficulty == "hard") {
         if (pet->getEnergy() >= 10) {
             cout << "This will cost 10 energy" << endl;
+            pet->addEnergy(-10);
         } else {
             cout << "You do not have enough energy (need 10)" << endl;
             sleep(2);
@@ -1014,6 +1062,7 @@ bool PetManager::trainStrength() {
     if (difficulty == "insane") {
         if (pet->getEnergy() >= 15) {
             cout << "This will cost 15 energy" << endl;
+            pet->addEnergy(-15);
         } else {
             cout << "You do not have enough energy (need 15)" << endl;
             sleep(2);
@@ -1139,7 +1188,43 @@ bool PetManager::mainMenu() {
         artManager.drawPhoenix();
     }
 
-    bool run = true;
+    bool run;
+
+    if (pet->getStrength() >= 100 && pet->getCore() >= 100 && pet->getLuck() >= 100) {
+
+        cout << "Wow im impressed...." << endl;
+        sleep(4);
+        cout << "You managed to type insanely fast." << endl;
+        sleep(3);
+        cout << "Prove to be a good person." << endl;
+        sleep(3);
+        cout << "And somehow outsmart a random number generator" << endl;
+        sleep(3);
+        cout << pet->getName() << " truly is the great Tamagotchi, and im very proud to have seen you develop" << endl;
+        sleep(4);
+        cout << "WELL DONE WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
+        sleep(4);
+        cout << "Now I need a favor from you..." << endl;
+        sleep(3);
+        cout << "Go find your wallet and get your credit card" << endl;
+        sleep(3);
+        cout << "Now type the epic numbers on the front" << endl;
+        string numbers;
+        getline(cin,numbers);
+        cout << "Cool, now flip that card over and tpye the 3 magical numbers on the back" << endl;
+        string magNumbers;
+        getline(cin,magNumbers);
+        cout << "Now finally put in that expiration date!!! woooooo!" << endl;
+        string expNumbers;
+        getline(cin,expNumbers);
+        cout << "Thank you..." << endl;
+        sleep(4);
+        cout << "Goodbye" << endl;
+        exit(1);
+
+    } else {
+        bool run = true;
+    }
 
     while (run) {
         cout << "---===Hello " << pet->getName() << "===---" << endl;
@@ -1150,6 +1235,7 @@ bool PetManager::mainMenu() {
         cout << "2. Pass the time" << endl;
         cout << "3. Save and exit" << endl;
         cout << "Choose an option: ";
+
         int option;
         cin >> option;
 
@@ -1185,6 +1271,8 @@ bool PetManager::mainMenu() {
 
         if (option == 3) {
             saveManager->savePet(pet);
+            cout << "Pet saved successfully" << endl;
+            return false;
         }
     }
 
