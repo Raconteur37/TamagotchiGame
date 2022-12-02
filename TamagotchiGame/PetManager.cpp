@@ -251,6 +251,22 @@ bool PetManager::trainLuck() {
         sleep(3);
     }
 
+    int x = 0;
+
+    int randNum = 1 + (rand() % 5);
+
+    if (randNum == 1) {
+        miserable = true;
+        anxious = false;
+        neutral = false;
+        confident = false;
+        overzealous = false;
+    }
+
+
+    cout << "Time to play poker, your pet is feeling " << endl;
+    //while (x < )
+
 
 
 
@@ -866,13 +882,11 @@ bool PetManager::mainMenu() {
     while (run) {
         cout << "---===Hello " << pet->getName() << "===---" << endl;
         cout << "Currently: " << pet->getStatus() << endl;
-        cout << "Strength: " << pet->getStrength() << " Core: " << pet->getCore() << " Luck: " << pet->getLuck()
-             << endl;
+        cout << "Strength: " << pet->getStrength() << " Core: " << pet->getCore() << " Luck: " << pet->getLuck() << " Energy: " << pet->getEnergy() << endl;
         cout << "1. Train" << endl;
         cout << "2. Send To Explore" << endl;
-        cout << "3. Check Stats" << endl;
-        cout << "4. Pass the time" << endl;
-        cout << "5. Save and exit" << endl;
+        cout << "3. Pass the time" << endl;
+        cout << "4. Save and exit" << endl;
         cout << "Choose an option: ";
         int option;
         cin >> option;
@@ -890,7 +904,25 @@ bool PetManager::mainMenu() {
             if (subOption == 2) {
                 trainCore();
             }
+            if (subOption == 3) {
+                trainLuck();
+            }
+            if (subOption > 3 || subOption < 1) {
+                cout << "Not valid" << endl;
+                return false;
+            }
         }
+
+        if (option == 3) {
+            cout << "Your pet begins to rest....give it some time" << endl;
+            sleep(10);
+            int energy = 1 + (rand() % 10);
+            pet->addEnergy(energy);
+            cout << "Your pet has gained " << energy << " energy" << endl;
+        }
+
+
+
     }
 
 

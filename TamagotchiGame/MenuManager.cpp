@@ -4,6 +4,7 @@
 #include "MenuManager.h"
 #include "Pet.h"
 #include "Phoenix.h"
+#include "Panda.h"
 #include "PetManager.h"
 
 using namespace std;
@@ -28,6 +29,30 @@ bool MenuManager::creatPet() {
         cout << "What will you name your Phoenix? " << endl;
         cin >> name;
         pet = new Phoenix(name,"phoenix");
+        if (!saveManager->petExists(pet)) {
+            saveManager->addPet(pet);
+            cout << pet->getName() + " has been made!" << endl;
+        } else {
+            cout << "Pet already exists!" << endl;
+        }
+    }
+    if (option == 2) {
+        string name;
+        cout << "What will you name your Panda? " << endl;
+        cin >> name;
+        pet = new Panda(name,"panda");
+        if (!saveManager->petExists(pet)) {
+            saveManager->addPet(pet);
+            cout << pet->getName() + " has been made!" << endl;
+        } else {
+            cout << "Pet already exists!" << endl;
+        }
+    }
+    if (option == 3) {
+        string name;
+        cout << "What will you name your Bunnies? " << endl;
+        cin >> name;
+        pet = new Panda(name,"bunnies");
         if (!saveManager->petExists(pet)) {
             saveManager->addPet(pet);
             cout << pet->getName() + " has been made!" << endl;
