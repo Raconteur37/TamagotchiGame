@@ -153,6 +153,64 @@ void PetManager::editValues(string difficulty,string type, bool add) {
 
 }
 
+bool PetManager::trainLuck() {
+
+    cout << "Welcome to Luck training..." << endl;
+    sleep(2);
+    cout << "I hope you trust " << pet->getName() << " because they are going to gamble" << endl;
+    sleep(3);
+    cout << pet->getName() << "'s current luck is " << pet->getLuck() << endl;
+    sleep(2);
+    cout << "The higher that stat is, the more likely they are to win...but also they have more to lose" << endl;
+    sleep(3);
+    cout << "Im going to determine which casino to send your pet to, then you are going to bet on which games they will win or lose one" << endl;
+    sleep(5);
+
+    double luck = pet->getLuck();
+
+    string casino,difficulty;
+
+    if (luck > 0 && luck <= 20) {
+        difficulty = "easy";
+        casino = "Dirt Hut Casino";
+    } else if (luck > 20 && luck <= 45) {
+        difficulty = "medium";
+        casino = "Middle Class Money Grabbing Casino";
+    } else if (luck > 45 && luck <= 80) {
+        difficulty = "hard";
+        casino = "High Stakes Casino";
+    } else if (luck > 80 && luck <= 99) {
+        difficulty = "insane";
+        casino = "Big Baller Lose All Your Money Here Casino";
+    } else if (luck >= 100) {
+        cout << "You have max luck already...what are you doing here" << endl;
+        return true;
+    }
+
+    cout << "Looks like you are heading to --==" << casino << "==--" << endl;
+    cout << "Goodluck..." <<endl;
+    sleep(3);
+    cout << "First off your pet is going to play Poker" << endl;
+    int pokerWins = 0;
+    int pokerPlays = 4;
+    sleep(3);
+    if (difficulty == "medium") {
+        pokerPlays += 2;
+    }
+    if (difficulty == "hard") {
+        pokerPlays += 3;
+    }
+    if (difficulty == "insane") {
+        pokerPlays += 4;
+    }
+    cout << "Your pet will play " << pokerPlays << " poker games" << endl;
+    sleep(4);
+
+
+
+
+}
+
 string askOptions() {
 
     string inp;

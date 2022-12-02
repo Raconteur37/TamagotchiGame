@@ -14,6 +14,7 @@ public:
     bool mainMenu();
     bool trainStrength();
     bool trainCore();
+    bool trainLuck();
     void editValues(string,string,bool);
 
 private:
