@@ -6,6 +6,8 @@ public:
 	Art();
 	void drawWelcome();
     void drawPhoenix();
+    void drawPanda();
+    void drawBunnies();
 
 
 

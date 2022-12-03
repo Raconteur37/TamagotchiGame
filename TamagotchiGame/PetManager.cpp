@@ -365,16 +365,16 @@ bool PetManager::trainLuck() {
     sleep(3);
     if (difficulty == "medium") {
         pokerPlays += 1;
-        blackjackPlays += 1;
+        blackjackPlays += 2;
     }
     if (difficulty == "hard") {
         pokerPlays += 2;
-        blackjackPlays += 2;
+        blackjackPlays += 3;
         crapsPlays += 1;
     }
     if (difficulty == "insane") {
         pokerPlays += 3;
-        blackjackPlays += 2;
+        blackjackPlays += 4;
         crapsPlays += 2;
     }
     cout << "Your pet will play " << pokerPlays << " poker games" << endl;
@@ -519,17 +519,25 @@ bool PetManager::trainLuck() {
     sleep(3);
     cout << "They actually won " << pokerWins << endl;
     sleep(3);
-    cout << "Here are your rewards " << endl;
-    for (int z = 0; z < pokerPlays; z++) {
-
-        if (pokerPredictWins <= 0) {
-            editValues(difficulty,"luck",false);
-        } else {
-            editValues(difficulty,"luck",true);
-            pokerPredictWins--;
-        }
+    cout << "Here is how this affects your luck " << endl;
+    sleep(3);
+    if (pokerWins == pokerPredictWins) {
+        editValues(difficulty,"luck",true);
         sleep(2);
+        editValues(difficulty,"luck",true);
+        sleep(2);
+        editValues(difficulty,"luck",true);
+    } else {
+        if (pokerPredictWins + 1 == pokerWins || pokerPredictWins - 1 == pokerWins) {
+            editValues(difficulty,"luck",true);
+            cout << "You got some luck for being close" << endl;
+            sleep(3);
+        }
+        editValues(difficulty,"luck",false);
+        sleep(3);
+        editValues(difficulty,"luck",false);
     }
+
     sleep(3);
 
     if (blackjackPlays > 0) {
@@ -537,15 +545,21 @@ bool PetManager::trainLuck() {
         sleep(3);
         cout << "They actually won " << blackjackWins << endl;
 
-        for (int z = 0; z < blackjackPlays; z++) {
-
-            if (blackjackPredictWins <= 0) {
-                editValues(difficulty,"luck",false);
-            } else {
-                editValues(difficulty,"luck",true);
-                blackjackPredictWins--;
-            }
+        if (blackjackWins == blackjackPredictWins) {
+            editValues(difficulty,"luck",true);
             sleep(2);
+            editValues(difficulty,"luck",true);
+            sleep(2);
+            editValues(difficulty,"luck",true);
+        } else {
+            if (blackjackPredictWins + 1 == blackjackWins || blackjackPredictWins - 1 == blackjackWins) {
+                editValues(difficulty,"luck",true);
+                cout << "You got some luck for being close" << endl;
+                sleep(3);
+            }
+            editValues(difficulty,"luck",false);
+            sleep(3);
+            editValues(difficulty,"luck",false);
         }
 
     }
@@ -557,15 +571,15 @@ bool PetManager::trainLuck() {
         sleep(3);
         cout << "They actually won " << crapsWins << endl;
 
-        for (int z = 0; z < crapsPlays; z++) {
-
-            if (crapsPredictWins <= 0) {
-                editValues(difficulty,"luck",false);
-            } else {
-                editValues(difficulty,"luck",true);
-                crapsPredictWins--;
-            }
+        if (crapsWins == crapsPredictWins) {
+            editValues(difficulty,"luck",true);
             sleep(2);
+            editValues(difficulty,"luck",true);
+            sleep(2);
+        } else {
+            editValues(difficulty,"luck",false);
+            sleep(3);
+            editValues(difficulty,"luck",false);
         }
 
     }
@@ -730,6 +744,7 @@ bool PetManager::trainCore() {
         }
     }
     sleep(4);
+    cout << "--===" << environment << "===--" << endl;
     cout << "-You continue on your path...suddenly you meet a crying Ogre-" << endl;
     sleep(3);
     option = askOptions();
@@ -787,6 +802,7 @@ bool PetManager::trainCore() {
         }
     }
     sleep(4);
+    cout << "--===" << environment << "===--" << endl;
     cout << "-As you walk, suddenly you meet a pretty (insert preferred gender) person, your owner starts to fall in love-" << endl;
     sleep(3);
     option = askOptions();
@@ -861,6 +877,7 @@ bool PetManager::trainCore() {
         }
     }
     sleep(4);
+    cout << "--===" << environment << "===--" << endl;
     cout << "-You are getting pretty tired...someone comes up to you and offers you some water" << endl;
     sleep(3);
     option = askOptions();
@@ -920,6 +937,7 @@ bool PetManager::trainCore() {
         }
     }
     sleep(4);
+    cout << "--===" << environment << "===--" << endl;
     cout << "-You are nearing the end of your journey....you see the puppy again..." << endl;
     sleep(3);
     option = askOptions();
@@ -1188,6 +1206,14 @@ bool PetManager::mainMenu() {
         artManager.drawPhoenix();
     }
 
+    if (pet->getType() == "panda") {
+        artManager.drawPanda();
+    }
+
+    if (pet->getType() == "bunnies") {
+        artManager.drawBunnies();
+    }
+
     bool run;
 
     if (pet->getStrength() >= 100 && pet->getCore() >= 100 && pet->getLuck() >= 100) {
@@ -1212,6 +1238,8 @@ bool PetManager::mainMenu() {
         string numbers;
         getline(cin,numbers);
         cout << "Cool, now flip that card over and tpye the 3 magical numbers on the back" << endl;
+        sleep(1);
+        cout << "Also quick shoutout to express vpn for sponsoring this game" << endl;
         string magNumbers;
         getline(cin,magNumbers);
         cout << "Now finally put in that expiration date!!! woooooo!" << endl;
@@ -1222,9 +1250,9 @@ bool PetManager::mainMenu() {
         cout << "Goodbye" << endl;
         exit(1);
 
-    } else {
-        bool run = true;
     }
+
+    run = true;
 
     while (run) {
         cout << "---===Hello " << pet->getName() << "===---" << endl;
